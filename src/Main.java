@@ -1,24 +1,28 @@
-import com.apptastic.rssreader.Item;
-import com.apptastic.rssreader.RssReader;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        //twitterCore object will fetch the twitter network as it is constructed.
-        Thread twitterThread = new Thread(new TwitterCore("Twitter Bot Thread"));
-        twitterThread.start();
+       var menu = new Menu();
+       var tweeter = new Tweeter();
+
+        do{
+            menu.printMenu();
+            menu.askChoice();
+            switch(menu.getChoice()){
+                case 1:
+                    //poast a tweet
+                    tweeter.askTweet();
+                    var t1 = new Thread(new Tweeter());
+                    t1.start();
+                    break;
+                case 2:
+                    //fetch tweets
+                    break;
+                case 3:
+                    //fetch news
+                    break;
+            }
+
+        }while(menu.getChoice() != 0);
+        System.out.println("Quitting. Good bye.");
     }
 }

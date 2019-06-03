@@ -6,17 +6,14 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import java.util.Scanner;
 
-public class TwitterCore implements Runnable{
+public class TwitterCore{
 
-    private String name;
     private TwitterFactory twitterFactory;
     private ConfigurationBuilder cb;
-    private String tweet;
 
-    public TwitterCore(String name){
-        this.name = name;
+    public TwitterCore(){
         this.cb = new ConfigurationBuilder();
-        this.cb.setDebugEnabled(true)
+        this.cb.setDebugEnabled(false)
                 .setOAuthConsumerKey("GaJTm3qWI31mboVcWSIcf2xaP")
                 .setOAuthConsumerSecret("jzjh2Sy26LmG8XxUOu65S0aVZSCh02h5vIAv8iswTlhcotR5P2")
                 .setOAuthAccessToken("1133659409878573057-hc9ZQHsx3RBlBXgYDnwUJ7wJfuqri8")
@@ -24,36 +21,19 @@ public class TwitterCore implements Runnable{
         this.twitterFactory =  new TwitterFactory(this.cb.build());
     }
 
-    public String getTweet() {
-        return tweet;
+    public TwitterFactory getTwitterFactory() {
+        return twitterFactory;
     }
 
-    public void setTweet(String tweet) {
-        this.tweet = tweet;
+    public void setTwitterFactory(TwitterFactory twitterFactory) {
+        this.twitterFactory = twitterFactory;
     }
 
-    public void askTweet(){
-        Scanner reader = new Scanner(System.in);
-        System.out.print("Tweet: ");
-        setTweet(reader.nextLine());
+    public ConfigurationBuilder getCb() {
+        return cb;
     }
 
-    public void postTweet(){
-        try{
-            Twitter twitter = twitterFactory.getInstance();
-            Status status = twitter.updateStatus(getTweet());
-        }catch(TwitterException e){
-            System.err.println(e);
-        }
-    }
-
-    public void run(){
-        try{
-            //will run during thread
-            askTweet();
-            postTweet();
-        }catch(Exception e){
-            System.err.println(e);
-        }
+    public void setCb(ConfigurationBuilder cb) {
+        this.cb = cb;
     }
 }
