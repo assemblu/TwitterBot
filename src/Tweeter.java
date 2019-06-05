@@ -13,7 +13,7 @@ public class Tweeter extends TwitterCore implements Runnable{
         return tweet;
     }
 
-    public synchronized void setTweet(String tweet) {
+    public void setTweet(String tweet) {
         this.tweet = tweet;
     }
 
@@ -33,7 +33,7 @@ public class Tweeter extends TwitterCore implements Runnable{
     }
 
     @Override
-    public void run() {
+    synchronized public void run() {
         postTweet();
     }
 }

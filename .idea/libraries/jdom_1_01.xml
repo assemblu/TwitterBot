@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jdom-1.01">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jdom-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rome-0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rome-fetcher-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rssreader-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
