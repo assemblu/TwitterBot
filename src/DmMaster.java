@@ -23,19 +23,33 @@ public class DmMaster extends TwitterCore implements Runnable{
     public void run() {
         while(true){
             if(System.currentTimeMillis() - timeStart > 35000){
-                //check if there is a message
-                //listener
-                //todo
                 try {
-                    var messages = getTwitterFactory().getInstance().getDirectMessages(1);
-                    System.out.println(messages);
-                    for (var index : messages) {
+                    //fetching new dms via new twitter object
+                    var cb = new ConfigurationBuilder();
+                    cb.setDebugEnabled(false)
+                            .setOAuthConsumerKey("sU24XDPs9BvyqoRoIo0mc819q")
+                            .setOAuthConsumerSecret("LFmw19k9Cucf1Nb7mGlKAGn9Qa33ioZzUpTf88UXEk9g6Z1AJX")
+                            .setOAuthAccessToken("1133659409878573057-t5ub09ySW68LqigKaBZIudtNvmCrvd")
+                            .setOAuthAccessTokenSecret("aDe6KJfwyL1SVIlqZh7qMy9Jxv2McJx9LaSu9nigttymU");
+                    var twitterFactory =  new TwitterFactory(cb.build());
+                    var twitter = twitterFactory.getInstance();
 
-                        var newsFetcher = new NewsFetcher();
-                        var newsFetcherThread = new Thread(new NewsFetcher());
-                        newsFetcher.setNewstitle(index.getText());
-                        newsFetcherThread.start();
-                        getTwitterFactory().getInstance().destroyDirectMessage(index.getId());
+                    for (var index : twitter.getDirectMessages(50)) {
+                        if(index.getText().contains("#")){
+                            var indexOfHash = index.getText().indexOf("#") + 1;
+                            var message = index.getText().substring(indexOfHash);
+                            if(message.contains(" ")) message = message.substring(0, message.indexOf(" "));
+
+                            //send the message
+                            twitter.sendDirectMessage(index.getSenderId(), message);
+                            System.out.println("Sent: " + message + " to @" + index.getSenderId());
+
+                            //todo
+                            //destroy message
+                            twitter.destroyDirectMessage(index.getId());
+                        }else{
+                            twitter.destroyDirectMessage(index.getId());
+                        }
                     }
                 }catch(Exception e){
                     System.err.println(e);

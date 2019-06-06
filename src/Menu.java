@@ -6,7 +6,7 @@ public class Menu{
     private int choice;
 
     public Menu(){
-        System.out.println("|=== Botmir v1.1 ===|");
+        System.out.println("|=== Botmir v1.2 ===|");
         var sb = new StringBuilder();
         sb.append("\n0. Quit");
         sb.append("\n1. Post a tweet");

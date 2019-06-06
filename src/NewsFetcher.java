@@ -24,6 +24,7 @@ public class NewsFetcher implements Runnable{
 
     private static String newstitle;
     private static String userName;
+    private static String cityName;
 
     public NewsFetcher(){
 
@@ -45,12 +46,20 @@ public class NewsFetcher implements Runnable{
         NewsFetcher.userName = userName;
     }
 
+    public static String getCityName() {
+        return cityName;
+    }
+
+    public static void setCityName(String cityName) {
+        NewsFetcher.cityName = cityName;
+    }
+
     @Override
     synchronized public void run() {
         //Implement news fetcher from RSS
         System.out.println("RSS Reader is running");
         try{
-            URL feedSource = new URL("https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en");
+            URL feedSource = new URL("https://news.google.com/rss/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNSEJ6TkhBU0FtVnVLQUFQAQ?hl=en-US&gl=US&ceid=US:en");
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedSource));
 
