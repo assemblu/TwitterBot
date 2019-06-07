@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.*;
-import twitter4j.auth.AccessToken;
 import twitter4j.conf.ConfigurationBuilder;
 public class DmMaster extends TwitterCore implements Runnable{
     //direct message manager
@@ -20,9 +19,10 @@ public class DmMaster extends TwitterCore implements Runnable{
     }
 
     @Override
-    public void run() {
+    synchronized public void run() {
         while(true){
-            if(System.currentTimeMillis() - timeStart > 35000){
+            //System.out.print(System.currentTimeMillis() - timeStart + "\r");
+            if(System.currentTimeMillis() - timeStart > 60000){
                 try {
                     //fetching new dms via new twitter object
                     var cb = new ConfigurationBuilder();
@@ -34,20 +34,38 @@ public class DmMaster extends TwitterCore implements Runnable{
                     var twitterFactory =  new TwitterFactory(cb.build());
                     var twitter = twitterFactory.getInstance();
 
+                    //loop messages
                     for (var index : twitter.getDirectMessages(50)) {
+                        //if has hastag it means it was sent from a user
                         if(index.getText().contains("#")){
+
+                            //get the content of the hashtag
                             var indexOfHash = index.getText().indexOf("#") + 1;
                             var message = index.getText().substring(indexOfHash);
                             if(message.contains(" ")) message = message.substring(0, message.indexOf(" "));
 
-                            //send the message
-                            twitter.sendDirectMessage(index.getSenderId(), message);
-                            System.out.println("Sent: " + message + " to @" + index.getSenderId());
+                            //set the rssLink
+                            var sb = new StringBuilder();
+                            sb.append(" https://news.google.com/news/rss/headlines/section/geo/");
+                            sb.append(message.toLowerCase());
 
-                            //todo
+                            //set rss link in news fetcher
+                            var newsFetcher = new NewsFetcher();
+                            newsFetcher.setRssLink(sb.toString());
+                            newsFetcher.setID(index.getSenderId());
+
+                            //start thread for news fetcher
+                            var t1 = new Thread(new NewsFetcher());
+                            t1.start(); //wait for it to end
+
+                            while(t1.isAlive()){
+                                //System.out.print("Wait.\r");
+                            }
+
                             //destroy message
                             twitter.destroyDirectMessage(index.getId());
                         }else{
+                            //destroy sent messages
                             twitter.destroyDirectMessage(index.getId());
                         }
                     }

@@ -6,12 +6,12 @@ public class Menu{
     private int choice;
 
     public Menu(){
-        System.out.println("|=== Botmir v1.2 ===|");
+        System.out.println("|=== Botmir v1.4 ===|");
         var sb = new StringBuilder();
         sb.append("\n0. Quit");
         sb.append("\n1. Post a tweet");
-        sb.append("\n2. Fetch tweets");
-        sb.append("\n3. Fetch news");
+        sb.append("\n2. Fetch tweets [N/A]");
+        sb.append("\n3. Fetch news [N/A]");
         this.menu = sb.toString();
     }
 
