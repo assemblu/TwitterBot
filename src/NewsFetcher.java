@@ -4,6 +4,7 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class NewsFetcher implements Runnable{
 
@@ -28,8 +29,8 @@ public class NewsFetcher implements Runnable{
         return newsTitle;
     }
 
-    public void setNewsTitle(String newstitle) {
-        this.newsTitle = newstitle;
+    public void setNewsTitle(String newsTitle) {
+        this.newsTitle = newsTitle;
     }
 
     public static String getNewsLink() {
@@ -51,7 +52,6 @@ public class NewsFetcher implements Runnable{
     @Override
     synchronized public void run() {
         //Implement news fetcher from RSS
-        System.out.println("RSS Reader is running");
         try {
             URL feedSource = new URL(rssLink);
             SyndFeedInput input = new SyndFeedInput();

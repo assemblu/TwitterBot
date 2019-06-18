@@ -7,6 +7,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.util.Scanner;
 
 public class Tweeter extends TwitterCore implements Runnable{
+
     private static String tweet;
 
     public String getTweet() {

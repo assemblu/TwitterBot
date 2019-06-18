@@ -6,10 +6,6 @@ public class DMSender implements Runnable{
     private static long identification;
     private static String message;
 
-    DMSender(){
-
-    }
-
     public static long getIdentification() {
         return identification;
     }

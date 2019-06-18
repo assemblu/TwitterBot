@@ -18,14 +18,6 @@ public class Main {
                     var tweeterThread = new Thread(new Tweeter());
                     tweeterThread.start();
                     break;
-                case 2:
-                    //fetch tweets
-                    System.out.println("Not implemented, yet!");
-                    break;
-                case 3:
-                    //fetch news
-                    System.out.println("Not implemented, yet!");
-                    break;
             }
         }while(menu.getChoice() != 0);
         System.out.println("Quitting. Good bye.");

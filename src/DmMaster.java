@@ -3,12 +3,12 @@ import java.util.List;
 
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
-public class DmMaster extends TwitterCore implements Runnable{
+public class DmMaster implements Runnable{
     //direct message manager
     //should run continously checking for messages
 
     private long timeStart;
-    List<DirectMessage> messages;
+    private List<DirectMessage> messages;
     private static ArrayList<String> checkedID;
 
 
@@ -46,7 +46,7 @@ public class DmMaster extends TwitterCore implements Runnable{
 
                             //set the rssLink
                             var sb = new StringBuilder();
-                            sb.append(" https://news.google.com/news/rss/headlines/section/geo/");
+                            sb.append("https://news.google.com/news/rss/headlines/section/geo/");
                             sb.append(message.toLowerCase());
 
                             //set rss link in news fetcher

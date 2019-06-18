@@ -10,8 +10,6 @@ public class Menu{
         var sb = new StringBuilder();
         sb.append("\n0. Quit");
         sb.append("\n1. Post a tweet");
-        sb.append("\n2. Fetch tweets [N/A]");
-        sb.append("\n3. Fetch news [N/A]");
         this.menu = sb.toString();
     }
 
