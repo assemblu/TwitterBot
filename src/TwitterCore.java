@@ -14,10 +14,10 @@ public class TwitterCore{
     public TwitterCore(){
         this.cb = new ConfigurationBuilder();
         this.cb.setDebugEnabled(false)
-                .setOAuthConsumerKey("sU24XDPs9BvyqoRoIo0mc819q")
-                .setOAuthConsumerSecret("LFmw19k9Cucf1Nb7mGlKAGn9Qa33ioZzUpTf88UXEk9g6Z1AJX")
-                .setOAuthAccessToken("1133659409878573057-t5ub09ySW68LqigKaBZIudtNvmCrvd")
-                .setOAuthAccessTokenSecret("aDe6KJfwyL1SVIlqZh7qMy9Jxv2McJx9LaSu9nigttymU");
+                .setOAuthConsumerKey("key")
+                .setOAuthConsumerSecret("secret")
+                .setOAuthAccessToken("token")
+                .setOAuthAccessTokenSecret("tokensecret");
         this.twitterFactory =  new TwitterFactory(this.cb.build());
     }
 
