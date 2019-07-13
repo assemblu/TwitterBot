@@ -4,26 +4,16 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class NewsFetcher implements Runnable{
+public class NewsFetcher {
 
-    private static String newsTitle;
-    private static String newsLink;
-    private static String rssLink;
-    private static long ID;
-
-    public NewsFetcher(){
-
-    }
-
-    public static long getID() {
-        return ID;
-    }
-
-    public static void setID(long ID) {
-        NewsFetcher.ID = ID;
-    }
+    private String newsTitle;
+    private String newsLink;
+    private String rssLink;
+    private long ID;
 
     public String getNewsTitle() {
         return newsTitle;
@@ -33,27 +23,34 @@ public class NewsFetcher implements Runnable{
         this.newsTitle = newsTitle;
     }
 
-    public static String getNewsLink() {
+    public String getNewsLink() {
         return newsLink;
     }
 
-    public static void setNewsLink(String newsLink) {
-        NewsFetcher.newsLink = newsLink;
+    public void setNewsLink(String newsLink) {
+        this.newsLink = newsLink;
     }
 
-    public static String getRssLink() {
+    public String getRssLink() {
         return rssLink;
     }
 
-    public static void setRssLink(String rssLink) {
-        NewsFetcher.rssLink = rssLink;
+    public void setRssLink(String rssLink) {
+        this.rssLink = rssLink;
     }
 
-    @Override
-    synchronized public void run() {
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public void fetch() {
         //Implement news fetcher from RSS
         try {
-            URL feedSource = new URL(rssLink);
+            URL feedSource = new URL(this.rssLink);
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedSource));
 
@@ -72,19 +69,14 @@ public class NewsFetcher implements Runnable{
                 dmSender.setIdentification(getID());
                 dmSender.setMessage(entry.getTitle(), entry.getLink());
 
-                //create a thread for the dm and run
-                var t2 = new Thread(new DMSender());
-                t2.start();
-
-                while(t2.isAlive()){
-
-                }
+                //isn't a thread anymore
+                dmSender.run();
 
                 break;
             }
         } catch(Exception e){
             System.err.println(e);
         }
-
     }
+
 }

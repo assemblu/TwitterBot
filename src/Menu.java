@@ -6,10 +6,11 @@ public class Menu{
     private int choice;
 
     public Menu(){
-        System.out.println("|=== Botmir v1.4 ===|");
+        System.out.println("|=== Botmir v1.6 ===|");
         var sb = new StringBuilder();
         sb.append("\n0. Quit");
         sb.append("\n1. Post a tweet");
+        sb.append("\n2. Delete Bot's Timeline (only recent tweets [1 page])");
         this.menu = sb.toString();
     }
 

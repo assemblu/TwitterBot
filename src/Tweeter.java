@@ -34,7 +34,5 @@ public class Tweeter extends TwitterCore implements Runnable{
     }
 
     @Override
-    synchronized public void run() {
-        postTweet();
-    }
+    synchronized public void run() { postTweet(); }
 }
